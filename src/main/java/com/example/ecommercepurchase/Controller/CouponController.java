@@ -22,7 +22,7 @@ public class CouponController {
         return new ResponseEntity<>(newCoupon, HttpStatus.CREATED);
     }
 
-    @GetMapping("getALl")
+    @GetMapping("getAll")
     public ResponseEntity<List<Coupon>> getAll(){
         List<Coupon> coupons = couponService.getAll();
         return new ResponseEntity<>(coupons,HttpStatus.OK);

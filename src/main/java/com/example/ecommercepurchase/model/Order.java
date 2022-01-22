@@ -17,6 +17,7 @@ public class Order  {
     private Long userId;
     private Long productId;
     private Long quantity;
+    @Column(nullable = true)
     private String coupon;
     private Long totalPrice;
 

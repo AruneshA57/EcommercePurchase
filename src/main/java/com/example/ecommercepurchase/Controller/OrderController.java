@@ -31,8 +31,11 @@ public class OrderController {
     public ResponseEntity<Order> addOrder(@RequestBody Order order) throws Throwable{
         if(orderService.prodIdExist(order.getProductId())){
             if(orderService.userIdExist(order.getUserId())){
-                Order newOrder = orderService.addOrder(order);
-                return new ResponseEntity<>(newOrder, HttpStatus.OK);
+                if(orderService.existsCoupon(order.getCoupon())){
+                    Order newOrder = orderService.addOrder(order);
+                    return new ResponseEntity<>(newOrder, HttpStatus.OK);
+                }
+                throw new Exception("Invalid Coupon");
             }
             throw new IllegalStateException("UserId not found");
         }

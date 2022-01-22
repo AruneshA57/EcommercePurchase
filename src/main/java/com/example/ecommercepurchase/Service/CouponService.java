@@ -23,7 +23,10 @@ public class CouponService {
        return couponRepository.save(coupon);
     }
 
+
     public List<Coupon> getAll(){
         return couponRepository.findAll();
     }
+
+
 }

@@ -1,8 +1,10 @@
 package com.example.ecommercepurchase.Service;
 
+import com.example.ecommercepurchase.Respository.CouponRepository;
 import com.example.ecommercepurchase.Respository.OrderRepository;
 import com.example.ecommercepurchase.Respository.ProductRepository;
 import com.example.ecommercepurchase.Respository.UserRepository;
+import com.example.ecommercepurchase.model.Coupon;
 import com.example.ecommercepurchase.model.Order;
 import com.example.ecommercepurchase.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,14 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private  final ProductRepository productRepository;
+    private final CouponRepository couponRepository;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, ProductRepository productRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, ProductRepository productRepository, CouponRepository couponRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
+        this.couponRepository = couponRepository;
     }
 
 
@@ -35,8 +39,12 @@ public class OrderService {
 
     public Order addOrder(Order order){
         Product product = productRepository.getProductByProductId(order.getProductId());
-
-        order.setTotalPrice(product.getProductCost()* order.getQuantity());
+        if(order.getCoupon()==null) order.setTotalPrice(product.getProductCost()* order.getQuantity());
+        else {
+            Coupon coupon = couponRepository.getCouponByCouponName(order.getCoupon());
+            Long discount = 100L - coupon.getCouponValue();
+            order.setTotalPrice(product.getProductCost()* order.getQuantity()*discount/100L);
+        }
         return orderRepository.save(order);
     }
 
@@ -50,5 +58,8 @@ public class OrderService {
 
     public Boolean userIdExist(Long id){
         return userRepository.existsById(id);
+    }
+    public Boolean existsCoupon(String coupon){
+        return couponRepository.existsCouponByCouponName(coupon);
     }
 }

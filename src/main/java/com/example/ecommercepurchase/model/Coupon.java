@@ -9,7 +9,9 @@ public class Coupon {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String coupon;
+    @Column(unique = true, nullable = false)
+    private String couponName;
+    @Column(nullable = false)
     private Long couponValue;
 
     public Coupon() {
@@ -24,17 +26,18 @@ public class Coupon {
         this.id = id;
     }
 
-    public Coupon(String coupon, Long couponValue) {
-        this.coupon = coupon;
+    public Coupon(String couponName, Long couponValue) {
+        this.couponName = couponName;
         this.couponValue = couponValue;
     }
 
-    public String getCoupon() {
-        return coupon;
+
+    public String getCouponName() {
+        return couponName;
     }
 
-    public void setCoupon(String coupon) {
-        this.coupon = coupon;
+    public void setCouponName(String coupon) {
+        this.couponName = coupon;
     }
 
     public Long getCouponValue() {
@@ -49,7 +52,7 @@ public class Coupon {
     public String toString() {
         return "Coupon{" +
                 "id=" + id +
-                ", coupon='" + coupon + '\'' +
+                ", coupon='" + couponName + '\'' +
                 ", couponValue=" + couponValue +
                 '}';
     }
