@@ -62,4 +62,10 @@ public class OrderService {
     public Boolean existsCoupon(String coupon){
         return couponRepository.existsCouponByCouponName(coupon);
     }
+    public Boolean existsOrderById(Long id){
+        return  orderRepository.existsOrderById(id);
+    }
+    public  Order getOrder(Long id){
+        return orderRepository.getOrderById(id);
+    }
 }

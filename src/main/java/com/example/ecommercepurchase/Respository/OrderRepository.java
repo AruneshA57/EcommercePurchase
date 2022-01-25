@@ -4,5 +4,7 @@ import com.example.ecommercepurchase.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderRepository extends JpaRepository<Order,Long> {
+    Boolean existsOrderById(Long id);
+    Order getOrderById(Long id);
 
 }
