@@ -68,4 +68,8 @@ public class OrderService {
     public  Order getOrder(Long id){
         return orderRepository.getOrderById(id);
     }
+    public Boolean checkQnty(Long id, Long qnty){
+        Product product = productRepository.getProductByProductId(id);
+        return (product.getProductQnty()>=qnty);
+    }
 }

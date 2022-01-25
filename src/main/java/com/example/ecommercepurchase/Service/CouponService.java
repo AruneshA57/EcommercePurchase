@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CouponService {
+public class CouponService  {
 
     private final CouponRepository couponRepository;
 

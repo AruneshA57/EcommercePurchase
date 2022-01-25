@@ -32,8 +32,11 @@ public class OrderController {
         if(orderService.prodIdExist(order.getProductId())){
             if(orderService.userIdExist(order.getUserId())){
                 if(orderService.existsCoupon(order.getCoupon())){
-                    Order newOrder = orderService.addOrder(order);
-                    return new ResponseEntity<>(newOrder, HttpStatus.OK);
+                    if(orderService.checkQnty(order.getProductId(), order.getQuantity())){
+                        Order newOrder = orderService.addOrder(order);
+                        return new ResponseEntity<>(newOrder, HttpStatus.OK);
+                    }
+                   throw new Exception("Invalid Quantity");
                 }
                 throw new Exception("Invalid Coupon");
             }

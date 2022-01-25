@@ -1,5 +1,6 @@
 package com.example.ecommercepurchase.Service;
 
+import com.example.ecommercepurchase.Respository.OrderRepository;
 import com.example.ecommercepurchase.Respository.ProductRepository;
 import com.example.ecommercepurchase.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ public class ProductService {
 
 
     private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -64,6 +67,17 @@ public class ProductService {
         productRepository.deleteAll();
     }
 
+    public void reduceStockQnty(Long id){
+        Long pId = orderRepository.getOrderById(id).getProductId();
+        Product product = productRepository.getProductByProductId(pId);
+        product.setProductQnty(product.getProductQnty()-orderRepository.getOrderById(id).getQuantity());
+        product.toString();
+    }
+
+    public Product getProductByOrderID(Long id){
+        Long pId = orderRepository.getOrderById(id).getProductId();
+        return productRepository.getProductByProductId(pId);
+    }
 
 
 

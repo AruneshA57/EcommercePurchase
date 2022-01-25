@@ -16,7 +16,6 @@ public class PayAndPlaceOrder {
     private String date;
     private Long orderId;
     private Long userId;
-
     private Long amount;
     private String Status;
 

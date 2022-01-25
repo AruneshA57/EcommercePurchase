@@ -2,23 +2,34 @@ package com.example.ecommercepurchase.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
 
 @Entity
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-
-    private String productQnty;
-
+    private String productName;
+    private Long productQnty;
     private Long productCost;
 
-    public Product(String productQnty, Long productCost) {
+
+
+    public Product(String productName, Long productQnty, Long productCost) {
+        this.productName = productName;
         this.productQnty = productQnty;
         this.productCost = productCost;
     }
 
     public Product(){}
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
     public Long getProductId() {
         return productId;
@@ -28,11 +39,11 @@ public class Product implements Serializable {
         this.productId = productId;
     }
 
-    public String getProductQnty() {
+    public Long getProductQnty() {
         return productQnty;
     }
 
-    public void setProductQnty(String productQnty) {
+    public void setProductQnty(Long productQnty) {
         this.productQnty = productQnty;
     }
 
@@ -48,8 +59,9 @@ public class Product implements Serializable {
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", productQnty='" + productQnty + '\'' +
-                ", productCost='" + productCost + '\'' +
+                ", productName='" + productName + '\'' +
+                ", productQnty=" + productQnty +
+                ", productCost=" + productCost +
                 '}';
     }
 }

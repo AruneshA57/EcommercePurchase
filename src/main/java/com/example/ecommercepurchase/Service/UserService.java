@@ -1,7 +1,9 @@
 package com.example.ecommercepurchase.Service;
 
 
+import com.example.ecommercepurchase.Respository.OrderRepository;
 import com.example.ecommercepurchase.Respository.UserRepository;
+import com.example.ecommercepurchase.model.Order;
 import com.example.ecommercepurchase.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +16,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final OrderRepository orderRepository;
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, OrderRepository orderRepository) {
         this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -59,5 +63,9 @@ public class UserService {
 
     public List<User> getUserByUserName(String userName) {
         return userRepository.getUserByUserName(userName);
+    }
+
+    public List<Order> getOrders(Long id){
+        return orderRepository.getOrdersByUserId(id);
     }
 }

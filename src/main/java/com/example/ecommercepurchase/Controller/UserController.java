@@ -1,7 +1,9 @@
 package com.example.ecommercepurchase.Controller;
 
+import com.example.ecommercepurchase.Service.OrderService;
 import com.example.ecommercepurchase.Service.UserService;
 
+import com.example.ecommercepurchase.model.Order;
 import com.example.ecommercepurchase.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,10 +18,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final OrderService orderService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, OrderService orderService) {
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/get/{id}")
@@ -60,6 +64,13 @@ public class UserController {
     @DeleteMapping("/deleteAll")
     public void deleteAll(){
         userService.deleteAll();
+    }
+
+    @GetMapping("/getOrders/{id}")
+    public ResponseEntity<List<Order>> getOrder(@PathVariable("id") Long id){
+        Long uId = orderService.getOrder(id).getUserId();
+        List<Order> orders = userService.getOrders(uId);
+        return new ResponseEntity<>(orders,HttpStatus.OK);
     }
 
 }

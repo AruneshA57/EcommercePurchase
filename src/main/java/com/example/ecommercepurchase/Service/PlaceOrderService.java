@@ -2,7 +2,10 @@ package com.example.ecommercepurchase.Service;
 
 import com.example.ecommercepurchase.Respository.OrderRepository;
 import com.example.ecommercepurchase.Respository.PlaceOrderRepo;
+import com.example.ecommercepurchase.Respository.ProductRepository;
+import com.example.ecommercepurchase.model.Order;
 import com.example.ecommercepurchase.model.PayAndPlaceOrder;
+import com.example.ecommercepurchase.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,8 @@ public class PlaceOrderService {
     private PlaceOrderRepo placeOrderRepo;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     public PayAndPlaceOrder placeOrder(PayAndPlaceOrder payAndPlaceOrder) {
 
